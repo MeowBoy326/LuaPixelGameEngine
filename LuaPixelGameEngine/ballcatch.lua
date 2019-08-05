@@ -73,4 +73,5 @@ function OnUserUpdate(fElapsedTime)
     end
 
     Draw.String(0, 0, string.format("Score = %s", Score), SPixel, 1)
+    return true
 end

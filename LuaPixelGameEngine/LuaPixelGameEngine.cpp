@@ -16,12 +16,6 @@ public:
 
 	bool OnUserUpdate(float fElapsedTime) override
 	{
-		if (LuaGameState)
-		{
-			auto& lua = *LuaGameState;
-			lua["OnUserUpdate"](fElapsedTime);
-		}
-
 		if (GetAsyncKeyState(VK_F5) & 1)
 		{
 			LoadLua(SList);
@@ -31,6 +25,12 @@ public:
 		{
 			UnLoadLua();
 			Clear(olc::BLACK);
+		}
+
+		if (LuaGameState)
+		{
+			auto& lua = *LuaGameState;
+			return lua["OnUserUpdate"](fElapsedTime);
 		}
 		return true;
 	}
