@@ -1,4 +1,4 @@
-#define SOL_ALL_SAFETIES_ON 1
+//#define SOL_ALL_SAFETIES_ON 1
 #define OLC_PGE_APPLICATION
 #include "LuaPixelGameEngine.h"
 
