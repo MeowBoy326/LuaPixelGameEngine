@@ -80,11 +80,10 @@ bool LoadLua(const std::vector<const char*>& scriptList)
 			draw.set_function("String", &LuaPixelGameEngine::DrawString, engine);
 			draw.set_function("Triangle", &LuaPixelGameEngine::DrawTriangle, engine);
 			draw.set_function("FillRect", &LuaPixelGameEngine::FillRect, engine);
-			//draw.set_function("SetPixelMode", &LuaPixelGameEngine::SetPixelMode, engine);
 			draw.set("SetPixelMode", [engine](const int32_t m) { return engine->SetPixelMode(static_cast<olc::Pixel::Mode>(m)); });
 		}
 
-		auto pixel = lua.new_usertype<olc::Pixel>("pixel", sol::constructors<olc::Pixel(), olc::Pixel(uint32_t), olc::Pixel(uint8_t, uint8_t, uint8_t, uint8_t)>());
+		auto pixel = lua.new_usertype<olc::Pixel>("Pixel", sol::constructors<olc::Pixel(), olc::Pixel(uint32_t), olc::Pixel(uint8_t, uint8_t, uint8_t, uint8_t)>());
 		{
 			pixel["a"] = &olc::Pixel::a;
 			pixel["r"] = &olc::Pixel::r;
@@ -219,7 +218,21 @@ int main()
 {
 	const auto engine = new LuaPixelGameEngine("Lua Game Engine");
 	EnginePtr = static_cast<LPVOID>(engine);
-	if (engine->Construct(256, 240, 4, 4))
+	int32_t sx, sy, px, py;
+	std::cout << "Welcome to LuaGameEngine!\n\n";
+	std::cout << "This project is based on the olcPixelEngine which can be found here,\n\n";
+	std::cout << "https://github.com/OneLoneCoder/olcPixelGameEngine\n\n";
+	std::cout << "F5 will load an lua script, F4 will unload an lua script.\n\n";
+	std::cout << "To start lets get some info,\n\n";
+	std::cout << "Please enter 4 numbers for screen X and Y and pixel X and Y.\n\n";
+	std::cout << "Example 400 300 2 2\n";
+	std::cin >> sx >> sy >> px >> py;
+	if (sx && sy && px && py && engine->Construct(sx, sy, px, py))
 		engine->Start();
+	else
+	{
+		std::cout << "error: exiting...\n";
+		Sleep(3000);
+	}
 	return 0;
 }

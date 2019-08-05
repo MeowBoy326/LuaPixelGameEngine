@@ -4,7 +4,7 @@
 #pragma comment (lib, "Lua/olcLua.lib")
 #include "sol.hpp"
 
-inline std::vector<const char*> SList = { "breakout.lua" };
+inline std::vector<const char*> SList = { "ballcatch.lua" };
 
 inline LPVOID EnginePtr;
 inline std::unique_ptr<sol::state> LuaGameState;
