@@ -1,3 +1,4 @@
+#define SOL_ALL_SAFETIES_ON 1
 #define OLC_PGE_APPLICATION
 #include "LuaPixelGameEngine.h"
 
@@ -194,12 +195,14 @@ bool LoadLua(const std::vector<const char*>& scriptList)
 
 		for (auto script : scriptList)
 		{
-			auto result = lua.safe_script_file(script);
-			if (!result.valid())
+			try 
 			{
-				const sol::error err = result;
-				std::cerr << "The code from the file has failed to run!\n" << err.what() << "\nPanicking and exiting..." << std::endl;
-				return false;
+				lua.safe_script_file(script);
+			}
+			catch (const sol::error& e) 
+			{
+				std::cerr << "an error has occurred: " << e.what() << "\n";
+				LuaGameState.reset();
 			}
 		}
 		lua["OnUserCreate"]();
