@@ -1,3 +1,4 @@
+-- Based entirely upon https://nerdyteachers.com/Explain/FruitDrop/ --
 local Score = 0
 local Level = 1
 local Gravity = 80
