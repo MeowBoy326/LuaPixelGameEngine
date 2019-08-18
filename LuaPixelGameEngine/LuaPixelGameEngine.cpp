@@ -1,6 +1,7 @@
-//#define SOL_ALL_SAFETIES_ON 1
 #define OLC_PGE_APPLICATION
 #include "LuaPixelGameEngine.h"
+
+#define SOL_ALL_SAFETIES_ON 1
 
 class LuaPixelGameEngine final : public olc::PixelGameEngine
 {
@@ -30,8 +31,9 @@ public:
 		if (LuaGameState)
 		{
 			auto& lua = *LuaGameState;
-			return lua["OnUserUpdate"](fElapsedTime);
+			lua["OnUserUpdate"](fElapsedTime);
 		}
+
 		return true;
 	}
 };
@@ -201,8 +203,9 @@ bool LoadLua(const std::vector<const char*>& scriptList)
 			}
 			catch (const sol::error& e) 
 			{
-				std::cerr << "an error has occurred: " << e.what() << "\n";
+				std::cerr << e.what() << "\n";
 				LuaGameState.reset();
+				return false;
 			}
 		}
 		lua["OnUserCreate"]();
@@ -228,7 +231,7 @@ int main()
 	std::cout << "F5 will load an lua script, F4 will unload an lua script.\n\n";
 	std::cout << "To start lets get some info,\n\n";
 	std::cout << "Please enter 4 numbers for screen X and Y and pixel X and Y.\n\n";
-	std::cout << "Example 400 300 2 2\n";
+	std::cout << "Example 256 240 2 2\n";
 	std::cin >> sx >> sy >> px >> py;
 	if (sx && sy && px && py && engine->Construct(sx, sy, px, py))
 		engine->Start();

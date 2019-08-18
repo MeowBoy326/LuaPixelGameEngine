@@ -410,7 +410,6 @@ namespace olc // All OneLoneCoder stuff will now exist in the "olc" namespace
 	class PixelGameEngine
 	{
 	public:
-		virtual ~PixelGameEngine() = default;
 		PixelGameEngine();
 
 	public:
